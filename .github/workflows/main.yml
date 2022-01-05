@@ -22,7 +22,7 @@ jobs:
         run: source("run.R")
 
       - name: Run a R shell
-        shell: R {0}
+        shell: R --vanilla {0}
         run: |
           saveRDS("xxx", "xxx.rds")
           Sys.which("file")

@@ -1,11 +1,9 @@
 on:
   push:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  R-on-Windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,13 +12,7 @@ jobs:
         with:
           r-version: 'release'
           use-public-rspm: true
-      
-      - uses: r-lib/actions/setup-r-dependencies@v1
-        with:
-          extra-packages: rcmdcheck
 
-      - uses: r-lib/actions/check-r-package@v1
-      
       - name: Install dependencies
         shell: Rscript {0}
         run: install.packages(c("fs", "wand"))

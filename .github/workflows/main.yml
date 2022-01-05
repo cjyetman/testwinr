@@ -18,5 +18,5 @@ jobs:
         run: install.packages(c("fs", "wand"))
 
       - name: Run a one-line script
-        shell: Rscript --vanilla --verbose {0}
+        shell: Rscript --vanilla {0}
         run: source("run.R", echo = TRUE)

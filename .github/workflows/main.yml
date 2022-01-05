@@ -20,3 +20,12 @@ jobs:
       - name: Run a one-line script
         shell: Rscript {0}
         run: source("run.R")
+
+      - name: Run a R shell
+        shell: R {0}
+        run: |
+          saveRDS("xxx", "xxx.rds")
+          Sys.which("file")
+          fs::file_access(Sys.which("file"), mode = "execute")
+          system2(command = Sys.which("file"), args = c("-b", "--mime-encoding", shQuote("xxx.rds")), stdout = TRUE)
+          wand::get_content_type("xxx.rds")

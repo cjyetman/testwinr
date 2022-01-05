@@ -8,4 +8,7 @@ is_binary <- function(filepath) {
 }
 
 saveRDS("xxx", "xxx.rds")
-is_binary("xxx.rds")
+print(is_binary("xxx.rds"))
+print(Sys.which("file"))
+print(fs::file_access(file_command, mode = "execute"))
+print(system2(command = Sys.which("file"), args = c("-b", "--mime-encoding", shQuote("xxx.rds")), stdout = TRUE))

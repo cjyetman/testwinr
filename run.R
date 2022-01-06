@@ -20,6 +20,6 @@ writeLines("XXX", no_read_access)
 fs::file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")
 
-fs::file_chmod(no_read_access, "a-r")
+fs::file_chmod(no_read_access, "u-r")
 fs::file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")

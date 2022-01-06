@@ -35,10 +35,10 @@ fs::file_info(bar)$permissions
 fs::file_access(bar, mode = "read")
 
 
-bar <- "bar"
-fs::file_create(bar)
-fs::file_info(bar)$permissions
-fs::file_access(bar, mode = "read")
-fs::file_chmod(bar, "000")
-fs::file_info(bar)$permissions
-fs::file_access(bar, mode = "read")
+bar2 <- "bar2"
+fs::file_create(bar2)
+fs::file_info(bar2)$permissions
+fs::file_access(bar2, mode = "read")
+fs::file_chmod(bar2, "000")
+fs::file_info(bar2)$permissions
+fs::file_access(bar2, mode = "read")

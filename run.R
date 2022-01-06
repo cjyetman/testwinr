@@ -15,11 +15,11 @@ print(system2(command = Sys.which("file"), args = c("-b", "--mime-encoding", shQ
 print(wand::get_content_type("xxx.rds"))
 
 
-no_read_access <- tempfile()
+no_read_access <- "foo"
 writeLines("XXX", no_read_access)
 fs::file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")
 
-fs::file_chmod(no_read_access, "u-r")
+fs::file_chmod(no_read_access, "u-r+w")
 fs::file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")

@@ -30,6 +30,6 @@ fs::file_access(no_read_access, mode = "read")
 
 
 bar <- "bar"
-fs::file_create(bar, mode = "u-r")
+fs::file_create(bar, mode = "000")
 fs::file_info(bar)$permissions
 fs::file_access(bar, mode = "read")

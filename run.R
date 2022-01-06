@@ -15,7 +15,7 @@ print(system2(command = Sys.which("file"), args = c("-b", "--mime-encoding", shQ
 print(wand::get_content_type("xxx.rds"))
 
 
-saveRDS("zzz", "zzz.rds")
-# Sys.chmod(no_read_access, mode = "222")
-fs::file_chmod("zzz.rds", "a+w")
-fs::file_access("zzz.rds", mode = "read")
+no_read_access <- tempfile()
+fs::file_create(no_read_access, mode = "a+w")
+writeLines("XXX", no_read_access)
+fs::file_access(no_read_access, mode = "read")

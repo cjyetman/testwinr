@@ -23,3 +23,13 @@ fs::file_access(no_read_access, mode = "read")
 fs::file_chmod(no_read_access, "u-r+w")
 fs::file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")
+
+fs::file_chmod(no_read_access, "u-rwx")
+fs::file_info(no_read_access)$permissions
+fs::file_access(no_read_access, mode = "read")
+
+
+bar <- "bar"
+fs::file_create(bar, mode = "a-r+w")
+fs::file_info(bar)$permissions
+fs::file_access(bar, mode = "read")

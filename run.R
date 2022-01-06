@@ -16,11 +16,11 @@ print(wand::get_content_type("xxx.rds"))
 
 
 no_read_access <- tempfile()
-fs::file_create(no_read_access, mode = "a+w")
+fs::file_create(no_read_access, mode = "a-r+w")
 writeLines("XXX", no_read_access)
 fs::file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")
 
-fs::file_chmod(no_read_access, "a+w")
+fs::file_chmod(no_read_access, "a-r+w")
 fs::file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")

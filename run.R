@@ -18,4 +18,5 @@ print(wand::get_content_type("xxx.rds"))
 no_read_access <- tempfile()
 fs::file_create(no_read_access, mode = "a+w")
 writeLines("XXX", no_read_access)
+file_info(no_read_access)$permissions
 fs::file_access(no_read_access, mode = "read")

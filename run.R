@@ -13,3 +13,9 @@ print(Sys.which("file"))
 print(fs::file_access(Sys.which("file"), mode = "execute"))
 print(system2(command = Sys.which("file"), args = c("-b", "--mime-encoding", shQuote("xxx.rds")), stdout = TRUE))
 print(wand::get_content_type("xxx.rds"))
+
+
+saveRDS("zzz", "zzz.rds")
+# Sys.chmod(no_read_access, mode = "222")
+fs::file_chmod("zzz.rds", "a+w")
+fs::file_access("zzz.rds", mode = "read")

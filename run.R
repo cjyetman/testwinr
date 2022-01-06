@@ -33,3 +33,12 @@ bar <- "bar"
 fs::file_create(bar, mode = "000")
 fs::file_info(bar)$permissions
 fs::file_access(bar, mode = "read")
+
+
+bar <- "bar"
+fs::file_create(bar)
+fs::file_info(bar)$permissions
+fs::file_access(bar, mode = "read")
+fs::file_chmod(bar, "000")
+fs::file_info(bar)$permissions
+fs::file_access(bar, mode = "read")

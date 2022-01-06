@@ -33,6 +33,7 @@ bar <- "bar"
 fs::file_create(bar, mode = "000")
 fs::file_info(bar)$permissions
 fs::file_access(bar, mode = "read")
+file.access(bar, mode = 4L)
 
 
 bar2 <- "bar2"
@@ -42,3 +43,4 @@ fs::file_access(bar2, mode = "read")
 fs::file_chmod(bar2, "000")
 fs::file_info(bar2)$permissions
 fs::file_access(bar2, mode = "read")
+file.access(bar2, mode = 4L)

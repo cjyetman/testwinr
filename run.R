@@ -1,4 +1,4 @@
-rds_or_rda <- function(filepaths) {
+rds_or_rda <- function(filepath) {
    con <- gzfile(filepath, open = "rb")
    on.exit(close(con))
 

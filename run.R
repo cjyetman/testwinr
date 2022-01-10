@@ -1,46 +1,33 @@
-is_binary <- function(filepath) {
-  file_command <- Sys.which("file")
-  if (fs::file_access(file_command, mode = "execute")) {
-    system2(command = file_command, args = c("-b", "--mime-encoding", shQuote(filepath)), stdout = TRUE) == "binary"
-  } else {
-    sub("/.*$", "", wand::get_content_type(filepath)) == "binary"
-  }
-}
+rds_or_rda <- function(filepaths) {
+   filepaths <- simplify_if_one_col_df(filepaths)
+   stopifnot("`filepaths` must be a character vector" = typeof(filepaths) == "character")
+   filepaths <- canonize_path(filepaths)
 
-saveRDS("xxx", "xxx.rds")
-print(is_binary("xxx.rds"))
-print(Sys.which("file"))
-print(fs::file_access(Sys.which("file"), mode = "execute"))
-print(system2(command = Sys.which("file"), args = c("-b", "--mime-encoding", shQuote("xxx.rds")), stdout = TRUE))
-print(wand::get_content_type("xxx.rds"))
+   vapply(
+     X = filepaths,
+     FUN = function(filepath) {
+       if (is_file_accessible(filepath)) {
+         con <- gzfile(filepath, open = "rb")
+         on.exit(close(con))
 
+         hdr <- readBin(con, what = "raw", n = 5L)
+         hdr_char <- paste(rawToChar(hdr, multiple = TRUE), collapse = "")
 
-no_read_access <- "foo"
-writeLines("XXX", no_read_access)
-fs::file_info(no_read_access)$permissions
-fs::file_access(no_read_access, mode = "read")
+         if (grepl("^RD[ABX][2-9]\n", hdr_char)) {
+           return("rda")
+         } else if (grepl("^[AX]\n", hdr_char)) {
+           return("rds")
+         }
+       }
 
-fs::file_chmod(no_read_access, "u-r+w")
-fs::file_info(no_read_access)$permissions
-fs::file_access(no_read_access, mode = "read")
+       NA_character_
+     },
+     FUN.VALUE = character(1L),
+     USE.NAMES = FALSE
+   )
+ }
 
-fs::file_chmod(no_read_access, "u-rwx")
-fs::file_info(no_read_access)$permissions
-fs::file_access(no_read_access, mode = "read")
-
-
-bar <- "bar"
-fs::file_create(bar, mode = "000")
-fs::file_info(bar)$permissions
-fs::file_access(bar, mode = "read")
-file.access(bar, mode = 4L)
-
-
-bar2 <- "bar2"
-fs::file_create(bar2)
-fs::file_info(bar2)$permissions
-fs::file_access(bar2, mode = "read")
-fs::file_chmod(bar2, "000")
-fs::file_info(bar2)$permissions
-fs::file_access(bar2, mode = "read")
-file.access(bar2, mode = 4L)
+rds_ascii <- tempfile()
+obj <- "xyz"
+saveRDS(obj, file = rds_ascii, ascii = TRUE, compress = FALSE)
+rds_or_rda(rds_ascii)

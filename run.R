@@ -11,7 +11,7 @@ close(con)
 hdr_char <- paste(rawToChar(hdr, multiple = TRUE), collapse = "")
 
 grepl("^RD[ABX][2-9]\n", hdr_char)
-grepl("^[AX]\n", hdr_char)
+grepl("^[AX][\n\r]", hdr_char)
 
 hdr
 hdr_char

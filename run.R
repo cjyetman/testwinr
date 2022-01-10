@@ -18,4 +18,18 @@ rds_ascii <- tempfile()
 obj <- "xyz"
 saveRDS(obj, file = rds_ascii, ascii = TRUE, compress = FALSE)
 file.exists(rds_ascii)
-rds_or_rda(rds_ascii)
+
+con <- gzfile(filepath, open = "rb")
+on.exit(close(con))
+
+hdr <- readBin(con, what = "raw", n = 5L)
+hdr_char <- paste(rawToChar(hdr, multiple = TRUE), collapse = "")
+
+if (grepl("^RD[ABX][2-9]\n", hdr_char)) {
+  print("rda")
+} else if (grepl("^[AX]\n", hdr_char)) {
+  print("rds")
+}
+
+print(hdr)
+print(hdr_char)

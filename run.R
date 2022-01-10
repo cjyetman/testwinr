@@ -17,4 +17,5 @@ rds_or_rda <- function(filepaths) {
 rds_ascii <- tempfile()
 obj <- "xyz"
 saveRDS(obj, file = rds_ascii, ascii = TRUE, compress = FALSE)
+file.exists(rds_ascii)
 rds_or_rda(rds_ascii)

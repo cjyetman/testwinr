@@ -11,4 +11,7 @@ hdr <- readBin(con, what = "raw", n = 5L)
 hdr_char <- paste(rawToChar(hdr, multiple = TRUE), collapse = "")
 
 grepl("^RD[ABX][2-9]\n", hdr_char)
-grepl("^[AX]\n", hdr_char))
+grepl("^[AX]\n", hdr_char)
+
+hdr
+hdr_char
